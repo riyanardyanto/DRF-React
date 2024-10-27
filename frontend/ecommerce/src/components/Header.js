@@ -1,11 +1,61 @@
 import React from "react"
 import { LinkContainer } from "react-router-bootstrap"
-import { Navbar, Nav } from "react-bootstrap"
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap"
 
 function Header() {
   return (
     <>
-      <Navbar className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
+        <Container fluid>
+          <LinkContainer to="/">
+            <Navbar.Brand>E-commerce</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: "100px" }}
+              navbarScroll
+            >
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+
+              <LinkContainer to="/cart">
+                <Nav.Link>Cart</Nav.Link>
+              </LinkContainer>
+
+              <NavDropdown title="New User?" id="navbarScrollingDropdown">
+                <LinkContainer to="/login">
+                  <NavDropdown.Item>Login</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/signup">
+                  <NavDropdown.Item>Signup</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Divider />
+                <NavDropdown.Item to="/">Logout</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {/* <Navbar className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <LinkContainer to="/">
             <Nav.Link className="navbar-brand">My E-commerce</Nav.Link>
@@ -76,7 +126,7 @@ function Header() {
             </form>
           </div>
         </div>
-      </Navbar>
+      </Navbar> */}
     </>
   )
 }

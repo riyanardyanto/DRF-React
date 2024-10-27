@@ -41,4 +41,32 @@ products = [
         "description": "An apple mobile which is nothing like apple",
         "count": 1,
     },
+    {
+        "id": 7,
+        "name": "Honor 40",
+        "price": 1499,
+        "description": "An apple mobile which is nothing like apple",
+        "count": 0,
+    },
+    {
+        "id": 8,
+        "name": "Honor 50",
+        "price": 1599,
+        "description": "An apple mobile which is nothing like apple",
+        "count": 0,
+    },
+    {
+        "id": 9,
+        "name": "Honor 60",
+        "price": 1699,
+        "description": "An apple mobile which is nothing like apple",
+        "count": 0,
+    },
+    {
+        "id": 10,
+        "name": "Honor 70",
+        "price": 1799,
+        "description": "An apple mobile which is nothing like apple",
+        "count": 0,
+    },
 ]

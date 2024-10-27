@@ -123,6 +123,14 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+MEDIA_URL = "/images/"
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+MEDIA_ROOT = "static/images"
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
