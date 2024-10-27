@@ -25,22 +25,34 @@ function Header() {
               navbarScroll
             >
               <LinkContainer to="/">
-                <Nav.Link>Home</Nav.Link>
+                <Nav.Link>
+                  <i className="fa-solid fa-house"></i> <span>Home</span>
+                </Nav.Link>
               </LinkContainer>
 
               <LinkContainer to="/cart">
-                <Nav.Link>Cart</Nav.Link>
+                <Nav.Link>
+                  <i class="fa-solid fa-cart-shopping"></i> Cart
+                </Nav.Link>
               </LinkContainer>
 
               <NavDropdown title="New User?" id="navbarScrollingDropdown">
                 <LinkContainer to="/login">
-                  <NavDropdown.Item>Login</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                  </NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/signup">
-                  <NavDropdown.Item>Signup</NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <i class="fa-solid fa-plus"></i> Signup
+                  </NavDropdown.Item>
                 </LinkContainer>
                 <NavDropdown.Divider />
-                <NavDropdown.Item to="/">Logout</NavDropdown.Item>
+                <LinkContainer to="/login">
+                  <NavDropdown.Item>
+                    <i class="fa-solid fa-circle-xmark"></i> Logout
+                  </NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             </Nav>
             <Form className="d-flex">
