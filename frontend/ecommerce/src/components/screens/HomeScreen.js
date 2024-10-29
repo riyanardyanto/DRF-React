@@ -4,6 +4,8 @@ import axios from "axios"
 import Product from "../Product"
 import { listProducts } from "../../actions/productActions"
 import { useDispatch, useSelector } from "react-redux"
+import Loader from "../Loader"
+import Message from "../Message"
 
 function HomeScreen() {
   const dispatch = useDispatch()
@@ -33,9 +35,9 @@ function HomeScreen() {
       <h1>Products</h1>
 
       {loading ? (
-        <div>Loading...</div>
+        <Loader />
       ) : error ? (
-        <div>{error}</div>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {products.map((product) => (
