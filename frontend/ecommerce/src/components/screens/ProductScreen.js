@@ -54,7 +54,9 @@ function ProductScreen({ params }) {
         <div>
           <Row>
             <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+              <Card>
+                <Image src={product.image} alt={product.name} fluid />
+              </Card>
             </Col>
 
             <Col md={3}>
