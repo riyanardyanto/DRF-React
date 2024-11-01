@@ -18,4 +18,10 @@ urlpatterns = [
     path("users/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("users/", views.get_users, name="get_users"),
     path("users/profile/", views.get_user_profile, name="get_user_profile"),
+    path("users/register/", views.register_user, name="register_user"),
+    path(
+        "activate/<str:uidb64>/<str:token>/",
+        views.ActivateAccountView.as_view(),
+        name="activate",
+    ),
 ]

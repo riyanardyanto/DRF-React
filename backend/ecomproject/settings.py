@@ -13,8 +13,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 
+import django.utils
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# debug for forcetext
+import django
+from django.utils.encoding import force_str
+
+django.utils.encoding.force_text = force_str
 
 
 # Quick-start development settings - unsuitable for production
@@ -99,10 +107,20 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+
+# email credentials for sending emails
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "riyanardyanto@gmail.com"
+EMAIL_HOST_PASSWORD = "akcsbeeyyjqyvtlm"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
