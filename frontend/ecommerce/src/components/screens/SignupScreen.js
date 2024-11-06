@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Loader from "../Loader"
 import Message from "../Message"
 import { validPassword } from "./Regex"
+import { signup } from "../../actions/userActions"
 
 function SignupScreen() {
   const navigate = useNavigate()
@@ -21,19 +22,35 @@ function SignupScreen() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState("")
+  const [message, setMessage] = useState("")
   const [show, changeshow] = useState("fa fa-eye-slash")
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  // const userLogin = useSelector((state) => state.userLogin)
+  // const { userInfo } = userLogin
+
+  const userSignup = useSelector((state) => state.userSignup)
+  const { error, loading, userInfo } = userSignup
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/")
+    }
+  }, [userInfo, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setError("Passwords do not match")
+      setMessage("Passwords do not match")
       navigate("/signup")
     } else if (!validPassword) {
-      setError("Invalid Email")
+      setMessage("Password criteria not met")
       navigate("/signup")
     } else {
-      setError("Sign Up Successful")
+      dispatch(signup(firstName, lastName, email, password))
+      setMessage("Sign Up Successful")
       navigate("/login")
     }
   }
@@ -63,7 +80,7 @@ function SignupScreen() {
                 Sign Up
               </Card.Header>
               <Card.Body>
-                {error && <Message variant="danger">{error}</Message>}
+                {message && <Message variant="danger">{message}</Message>}
                 <Form onSubmit={submitHandler}>
                   <Form.Group controlId="first_name" className="my-3">
                     <Form.Label>

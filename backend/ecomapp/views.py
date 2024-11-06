@@ -91,6 +91,14 @@ def get_users(request: Request):
 def register_user(request: Request):
     data = request.data
     try:
+        user = User.objects.create(
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+            username=data["email"],
+            email=data["email"],
+            password=make_password(data["password"]),
+        )
+        """
         user = User.objects.create_user(
             first_name=data["first_name"],
             last_name=data["last_name"],
@@ -121,9 +129,13 @@ def register_user(request: Request):
         )
         email_message.send()
 
-        return Response({"email": user.email}, status=status.HTTP_201_CREATED)
+        """
+        serialize = UserSerializerWithToken(user, many=False)
+        return Response(serialize.data)
+
+        # return Response({"email": user.email}, status=status.HTTP_201_CREATED)
     except Exception as e:
-        message = {"detail": str(e)}
+        message = {"details": str(e)}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 

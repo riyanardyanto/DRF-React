@@ -5,10 +5,18 @@ import {
   productListReducers,
   productDetailsReducers,
 } from "./reducers/productReducers"
+import {
+  userLoginReducer,
+  userLogoutReducer,
+  userSignupReducer,
+} from "./reducers/userReducers"
 
 const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
+  userLogin: userLoginReducer,
+  userLogout: userLogoutReducer,
+  userSignup: userSignupReducer,
 })
 
 const initialState = {}

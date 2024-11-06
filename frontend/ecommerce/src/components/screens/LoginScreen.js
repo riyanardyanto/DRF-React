@@ -13,27 +13,33 @@ import { useDispatch, useSelector } from "react-redux"
 import Loader from "../Loader"
 import Message from "../Message"
 import { validPassword } from "./Regex"
+import { login } from "../../actions/userActions"
 
 function LoginScreen() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState("")
+  const [message, setMessage] = useState("")
   const [show, changeshow] = useState("fa fa-eye-slash")
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { error, loading, userInfo } = userLogin
+
+  const location = useLocation()
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect)
+    }
+  }, [userInfo, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      navigate("/signup")
-    } else if (!validPassword) {
-      setError("Invalid Email")
-      navigate("/signup")
-    } else {
-      setError("Sign Up Successful")
-      navigate("/login")
-    }
+
+    dispatch(login(email, password))
+    // setMessage("")
   }
 
   const showPassword = () => {
@@ -58,7 +64,7 @@ function LoginScreen() {
                 Login
               </Card.Header>
               <Card.Body>
-                {error && <Message variant="danger">{error}</Message>}
+                {message && <Message variant="danger">{message}</Message>}
                 <Form onSubmit={submitHandler}>
                   <Form.Group controlId="email" className="my-3">
                     <Form.Label>
