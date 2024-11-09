@@ -53,7 +53,11 @@ export const signup =
         config
       )
       dispatch({ type: USER_SIGNUP_SUCCESS, payload: data })
-      localStorage.setItem("userInfo", JSON.stringify(data))
+      // localStorage.setItem("userInfo", JSON.stringify(data))
+      // localStorage.setItem(
+      //   "activateMessage",
+      //   "Activate your account by clicking on the link sent to your email"
+      // )
     } catch (error) {
       dispatch({
         type: USER_SIGNUP_FAIL,

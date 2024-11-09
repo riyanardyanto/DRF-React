@@ -59,69 +59,77 @@ function LoginScreen() {
         <Row>
           <Col md={4}></Col>
           <Col md={4}>
-            <Card>
-              <Card.Header as="h3" className="text-center text-light bg-dark">
-                Login
-              </Card.Header>
-              <Card.Body>
-                {message && <Message variant="danger">{message}</Message>}
-                <Form onSubmit={submitHandler}>
-                  <Form.Group controlId="email" className="my-3">
-                    <Form.Label>
-                      <span>
-                        <i class="fa-solid fa-envelope"></i>
-                      </span>{" "}
-                      <b>Email address</b>
-                    </Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </Form.Group>
-                  <Form.Group className="my-3">
-                    <Form.Label>
-                      <span>
-                        <i class="fa-solid fa-lock"></i>
-                      </span>{" "}
-                      <b>Password</b>
-                    </Form.Label>
-                    <InputGroup className="mb-3">
+            {loading ? (
+              <Loader />
+            ) : error ? (
+              <Message variant="danger">{error}</Message>
+            ) : (
+              <Card>
+                <Card.Header as="h3" className="text-center text-light bg-dark">
+                  Login
+                </Card.Header>
+                <Card.Body>
+                  {message && <Message variant="danger">{message}</Message>}
+                  {error && <Message variant="danger">{error}</Message>}
+                  {loading && <Loader />}
+                  <Form onSubmit={submitHandler}>
+                    <Form.Group controlId="email" className="my-3">
+                      <Form.Label>
+                        <span>
+                          <i class="fa-solid fa-envelope"></i>
+                        </span>{" "}
+                        <b>Email address</b>
+                      </Form.Label>
                       <Form.Control
-                        type="password"
-                        placeholder="Enter password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        type="email"
+                        placeholder="Enter email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
-                      <InputGroup.Text onClick={showPassword}>
+                    </Form.Group>
+                    <Form.Group className="my-3">
+                      <Form.Label>
                         <span>
-                          <i class={show}></i>
-                        </span>
-                      </InputGroup.Text>
-                    </InputGroup>
-                  </Form.Group>
+                          <i class="fa-solid fa-lock"></i>
+                        </span>{" "}
+                        <b>Password</b>
+                      </Form.Label>
+                      <InputGroup className="mb-3">
+                        <Form.Control
+                          type="password"
+                          placeholder="Enter password"
+                          id="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                        <InputGroup.Text onClick={showPassword}>
+                          <span>
+                            <i class={show}></i>
+                          </span>
+                        </InputGroup.Text>
+                      </InputGroup>
+                    </Form.Group>
 
-                  <div className="d-grid gap-2">
-                    <Button type="submit" variant="primary" className="mt-3">
-                      Login
-                    </Button>
-                  </div>
-                </Form>
+                    <div className="d-grid gap-2">
+                      <Button type="submit" variant="primary" className="mt-3">
+                        Login
+                      </Button>
+                    </div>
+                  </Form>
 
-                <Row className="py-3">
-                  <Col>
-                    <small>
-                      Don't have an account? <Link to="/signup">Sign Up</Link>
-                    </small>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+                  <Row className="py-3">
+                    <Col>
+                      <small>
+                        Don't have an account? <Link to="/signup">Sign Up</Link>
+                      </small>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            )}
           </Col>
           <Col md={4}></Col>
         </Row>

@@ -25,6 +25,16 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from .utils import generate_token, TokenGenerator
 from django.views.generic import View
+import threading
+
+
+class EmailTrhread(threading.Thread):
+    def __init__(self, email_message):
+        self.email_message = email_message
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email_message.send()
 
 
 # Create your views here.
@@ -91,15 +101,15 @@ def get_users(request: Request):
 def register_user(request: Request):
     data = request.data
     try:
+        # user = User.objects.create(
+        #     first_name=data["first_name"],
+        #     last_name=data["last_name"],
+        #     username=data["email"],
+        #     email=data["email"],
+        #     password=make_password(data["password"]),
+        # )
+
         user = User.objects.create(
-            first_name=data["first_name"],
-            last_name=data["last_name"],
-            username=data["email"],
-            email=data["email"],
-            password=make_password(data["password"]),
-        )
-        """
-        user = User.objects.create_user(
             first_name=data["first_name"],
             last_name=data["last_name"],
             username=data["email"],
@@ -127,11 +137,17 @@ def register_user(request: Request):
             from_email=settings.EMAIL_HOST_USER,
             to=[data["email"]],
         )
-        email_message.send()
+        EmailTrhread(email_message).start()
+        # email_message.send()
 
-        """
-        serialize = UserSerializerWithToken(user, many=False)
-        return Response(serialize.data)
+        message = {
+            "details": "Activate your account by clicking on the link sent to your email"
+        }
+
+        return Response(message, status=status.HTTP_201_CREATED)
+
+        # serialize = UserSerializerWithToken(user, many=False)
+        # return Response(serialize.data, status=status.HTTP_201_CREATED)
 
         # return Response({"email": user.email}, status=status.HTTP_201_CREATED)
     except Exception as e:

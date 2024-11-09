@@ -8,8 +8,18 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import { logout } from "../actions/userActions"
 
 function Header() {
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
@@ -36,24 +46,31 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
 
-              <NavDropdown title="New User?" id="navbarScrollingDropdown">
-                <LinkContainer to="/login">
-                  <NavDropdown.Item>
-                    <i class="fa-solid fa-right-to-bracket"></i> Login
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="navbarScrollingDropdown">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
                   </NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/signup">
-                  <NavDropdown.Item>
-                    <i class="fa-solid fa-plus"></i> Signup
-                  </NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Divider />
-                <LinkContainer to="/login">
-                  <NavDropdown.Item>
-                    <i class="fa-solid fa-circle-xmark"></i> Logout
-                  </NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+                </NavDropdown>
+              ) : (
+                <NavDropdown title="New User?" id="navbarScrollingDropdown">
+                  <LinkContainer to="/login">
+                    <Nav.Link>
+                      <i className="fa-solid fa-right-to-bracket"></i>{" "}
+                      <span>Login</span>
+                    </Nav.Link>
+                  </LinkContainer>{" "}
+                  <LinkContainer to="/signup">
+                    <Nav.Link>
+                      <i className="fa-solid fa-user-plus"></i>{" "}
+                      <span>Signup</span>
+                    </Nav.Link>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
             </Nav>
             <Form className="d-flex">
               <Form.Control

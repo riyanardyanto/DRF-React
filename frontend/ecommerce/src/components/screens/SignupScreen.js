@@ -36,7 +36,13 @@ function SignupScreen() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/")
+      setMessage(userInfo.details)
+      setFitstName("")
+      setLastName("")
+      setEmail("")
+      setPassword("")
+      setConfirmPassword("")
+      // navigate("/")
     }
   }, [userInfo, redirect])
 
@@ -51,7 +57,7 @@ function SignupScreen() {
     } else {
       dispatch(signup(firstName, lastName, email, password))
       setMessage("Sign Up Successful")
-      navigate("/login")
+      // navigate("/login")
     }
   }
 
@@ -80,7 +86,14 @@ function SignupScreen() {
                 Sign Up
               </Card.Header>
               <Card.Body>
-                {message && <Message variant="danger">{message}</Message>}
+                {loading ? (
+                  <Loader />
+                ) : error ? (
+                  <Message variant="danger">{error}</Message>
+                ) : message ? (
+                  <Message variant="success">{message}</Message>
+                ) : null}
+                {/* {message && <Message variant="danger">{message}</Message>} */}
                 <Form onSubmit={submitHandler}>
                   <Form.Group controlId="first_name" className="my-3">
                     <Form.Label>
