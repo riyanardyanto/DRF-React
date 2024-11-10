@@ -27,7 +27,7 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route exact path="/cart" element={<CartScreen />}></Route>
+          <Route exact path="/cart/:id?" element={<CartScreen />}></Route>
         </Routes>
 
         <Routes>
